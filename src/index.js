@@ -7,6 +7,7 @@ const handlebars = require('express-handlebars');
 // Khởi tạo ứng dụng Express
 const app = express();
 const port = 3000;
+app.use(express.static(path.join(__dirname, 'public')));
 
 
 app.use(morgan('combined')); // Sử dụng middleware Morgan để ghi log các yêu cầu HTTP đến máy chủ
