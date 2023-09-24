@@ -1,16 +1,22 @@
+const Course = require('../models/Course')
 
 class SiteController {
+  // [GET] /
+  async index(req, res) {
+    // res.render('home');
 
-    // [GET] /
-    index(req, res) {
-        res.render('home');
-    }
+    res.json(await Course.find({}));
 
-    //[GET] /search
-    search(req, res) {
-        res.render('search');
-    }
 
+    // res.json({
+    //   name: 'test'
+    // })
+  }
+
+  //[GET] /search
+  search(req, res) {
+    res.render('search');
+  }
 }
 
-module.exports = new SiteController;
+module.exports = new SiteController();
