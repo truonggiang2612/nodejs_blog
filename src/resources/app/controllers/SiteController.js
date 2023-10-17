@@ -1,17 +1,19 @@
-const Course = require('../models/Course')
+const Course = require('../models/Course');
 
 class SiteController {
   // [GET] /
-  async index(req, res) {
-    // res.render('home');
 
-    res.json(await Course.find({}));
+  index(req, res, next) {
+    Course.find({})
+      .then(courses => {
+        courses = courses.map(course => course.toObject())
+        res.render('home', { courses })
+      })
 
-
-    // res.json({
-    //   name: 'test'
-    // })
+      .catch(next);
   }
+
+
 
   //[GET] /search
   search(req, res) {
