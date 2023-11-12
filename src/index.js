@@ -1,14 +1,13 @@
 const path = require('path');
 const morgan = require('morgan');
+const methodOverride = require('method-override');
 const handlebars = require('express-handlebars');
 const { log } = require('console');
-
-// EXPRESS JS
 const express = require('express');
 const app = express();
 const port = 3000;
 
-const route = require('./resources/routes');
+const route = require('./routes');
 const db = require('./config/db/index');
 
 // Connect to DB
@@ -27,8 +26,12 @@ app.use(
 app.use(express.json());
 
 
+// OVERRIDE METHOD POST = PUT,...
+app.use(methodOverride('_method'));
+
+
 // Sử dụng middleware Morgan để ghi log các yêu cầu HTTP đến máy chủ
-app.use(morgan('combined'));
+// app.use(morgan('combined'));
 
 
 // Template engine
@@ -36,6 +39,9 @@ app.engine(
     'hbs',
     handlebars({
         extname: '.hbs',
+        helpers: {
+            sum: (a, b) => a + b
+        }
     }),
 );
 
